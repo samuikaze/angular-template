@@ -29,3 +29,5 @@
 - [access denied for image file server in nginix](https://stackoverflow.com/a/54623331)
 - [部署 - Angular](https://angular.tw/guide/deployment#the-base-tag)
 - [Module not found: Error: Can't resolve file](https://github.com/angular/angular-cli/issues/4778#issuecomment-280798718)
+- [ng generate module](https://angular.io/cli/generate#module)
+- [如何透過 Angular CLI 快速將專案全部都轉換成獨立元件架構](https://blog.miniasp.com/post/2023/04/10/Migration-to-Standalone-Component-using-Angular-CLI)
