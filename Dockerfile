@@ -3,13 +3,21 @@ FROM node:alpine AS builder
 WORKDIR /usr/app
 
 COPY ./package*.json ./
-RUN npm install -g @angular/cli \
-  && npm install
+RUN apk update && \
+  apk add --no-cache \
+    util-linux \
+    openssl && \
+  echo "Install Angular cli ..." && \
+  npm install -g @angular/cli && \
+  echo "Install dependencies ..." && \
+  npm install
 
 COPY . .
 COPY src src
 
-RUN ng build -c production --base-href /template/
+RUN chmod +x ./.infrastructures/generate-secret-key.sh && \
+  /bin/ash ./.infrastructures/generate-secret-key.sh && \
+  ng build -c production --base-href /template/
 
 FROM nginx:alpine
 
