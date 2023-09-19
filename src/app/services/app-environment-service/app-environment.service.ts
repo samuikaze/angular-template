@@ -47,7 +47,7 @@ export class AppEnvironmentService {
    */
   public async getConfig(key: string): Promise<any> {
     if (this.configFromJson === undefined) {
-      await new Promise<void>(resolve => setTimeout(resolve, 100));
+      await new Promise<void>((resolve) => setTimeout(resolve, 100));
       return this.getConfig(key);
     }
 
