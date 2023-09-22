@@ -21,7 +21,7 @@ export class CommonService {
    * @param newTitle 新標題
    */
   public async setTitle(newTitle: string): Promise<void> {
-    const siteTitle = await this.appEnvironmentService.getConfig('siteTitle');
+    const siteTitle = await this.appEnvironmentService.getConfig<string>('siteTitle') || '';
     if (newTitle.length > 0) {
       this.titleService.setTitle(`${newTitle} - ${siteTitle}`);
     } else {
