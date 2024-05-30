@@ -8,10 +8,12 @@ describe('BaseHeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [BaseHeaderComponent]
-})
+      declarations: [ BaseHeaderComponent ]
+    })
     .compileComponents();
+  });
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(BaseHeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

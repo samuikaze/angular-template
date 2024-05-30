@@ -1,8 +1,9 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { BaseParams, CustomerHeaders, RequestBody } from './request';
-import { SecureLocalStorageService } from '../secure-local-storage/secure-local-storage.service';
+import { catchError, Observable, throwError } from 'rxjs';
+import BaseParams from 'src/app/abstracts/http-client/base-params';
+import CustomerHeaders from 'src/app/abstracts/http-client/customer-headers';
+import RequestBody from 'src/app/abstracts/http-client/request-body';
 
 @Injectable({
   providedIn: 'root'
@@ -10,32 +11,7 @@ import { SecureLocalStorageService } from '../secure-local-storage/secure-local-
 export class RequestService {
 
   private headers: HttpHeaders = new HttpHeaders();
-  constructor(
-    private http: HttpClient,
-    private secureLocalStorageService: SecureLocalStorageService
-  ) { }
-
-  /**
-   * URL 前處理
-   *
-   * @param originalUri 原始傳入的網址
-   * @returns 經處理後的網址
-   */
-  private preprocessUri(originalUri: string): string {
-    if (
-      originalUri.indexOf('https://') > -1 ||
-      originalUri.indexOf('http://') > -1
-    ) {
-      return originalUri;
-    }
-
-    const protocol = `${location.protocol}//`
-    const hostname = location.host;
-    const path = location.pathname;
-    const uri = (originalUri.indexOf('/') === 0) ? originalUri.substring(1) : originalUri;
-
-    return `${protocol}${hostname}${path}${uri}`;
-  }
+  constructor(private http: HttpClient) { }
 
   /**
    * 取得標頭
@@ -47,14 +23,9 @@ export class RequestService {
       Accept: "application/json"
     });
 
-    if (this.secureLocalStorageService.has("accessToken")) {
-      const accessToken = this.secureLocalStorageService.get("accessToken");
-      this.headers = this.headers.set("Authorization", `Bearer ${accessToken}`);
-    }
-
     if (header !== undefined) {
       Object.entries(header).forEach(([key, value]) => {
-        this.headers = this.headers.set(key, value);
+        this.headers.set(key, value);
       });
     }
   }
@@ -82,24 +53,21 @@ export class RequestService {
   /**
    * 處理請求失敗
    * @param error 請求失敗資料
+   * @return 可觀察物件
    */
-  public requestFailedHandler(error: HttpErrorResponse): void {
-    console.error(error);
-
+  private requestFailedHandler(error: HttpErrorResponse) {
     if (error.status === 0) {
       // 客戶端網路錯誤
-      console.error(`請求過程中發生錯誤: ${error.message}`);
+      console.error('請求過程中發生錯誤:', error.error);
+    } else {
+      // 後端返回的錯誤
+      console.error(
+        `發生 ${error.status} 錯誤, 異常資料為: `, error.error
+      );
     }
 
-    const errorMessage = (error.error.message == null) ? error.message : error.error.message;
-
-    if (error.status >= 400 && error.status < 500) {
-      alert(`給定的資料有誤，訊息為: ${errorMessage}`)
-    }
-
-    if (error.status >= 500) {
-      alert('系統內部發生錯誤，請聯絡管理員處理');
-    }
+    alert(error.error.message);
+    return throwError(() => new Error('請求發生錯誤，請稍後再重試一次'));
   }
 
   /**
@@ -112,12 +80,14 @@ export class RequestService {
   public get<T>(url: string, param?: BaseParams, header?: CustomerHeaders): Observable<T> {
     this.setHeaders(header);
     const PARAMS = this.setParams(param);
-    url = this.preprocessUri(url);
 
     return this.http.get<T>(url, {
         headers: this.headers,
         params: PARAMS,
-      });
+      })
+      .pipe(
+        catchError((error: HttpErrorResponse) => this.requestFailedHandler(error))
+      );
   }
 
   /**
@@ -131,12 +101,14 @@ export class RequestService {
   public post<T>(url: string, body?: RequestBody, param?: BaseParams, header?: CustomerHeaders): Observable<T> {
     this.setHeaders(header);
     const PARAMS = this.setParams(param);
-    url = this.preprocessUri(url);
 
     return this.http.post<T>(url, body, {
         headers: this.headers,
         params: PARAMS,
-      });
+      })
+      .pipe(
+        catchError((error: HttpErrorResponse) => this.requestFailedHandler(error))
+      );
   }
 
   /**
@@ -150,12 +122,14 @@ export class RequestService {
    public put<T>(url: string, body?: RequestBody, param?: BaseParams, header?: CustomerHeaders): Observable<T> {
     this.setHeaders(header);
     const PARAMS = this.setParams(param);
-    url = this.preprocessUri(url);
 
     return this.http.put<T>(url, body, {
         headers: this.headers,
         params: PARAMS,
-      });
+      })
+      .pipe(
+        catchError((error: HttpErrorResponse) => this.requestFailedHandler(error))
+      );
   }
 
   /**
@@ -169,12 +143,14 @@ export class RequestService {
   public patch<T>(url: string, body?: RequestBody, param?: BaseParams, header?: CustomerHeaders): Observable<T> {
     this.setHeaders(header);
     const PARAMS = this.setParams(param);
-    url = this.preprocessUri(url);
 
     return this.http.patch<T>(url, body, {
         headers: this.headers,
         params: PARAMS,
-      });
+      })
+      .pipe(
+        catchError((error: HttpErrorResponse) => this.requestFailedHandler(error))
+      );
   }
 
   /**
@@ -187,11 +163,13 @@ export class RequestService {
    public delete<T>(url: string, param?: BaseParams, header?: CustomerHeaders): Observable<T> {
     this.setHeaders(header);
     const PARAMS = this.setParams(param);
-    url = this.preprocessUri(url);
 
     return this.http.delete<T>(url, {
         headers: this.headers,
         params: PARAMS,
-      });
+      })
+      .pipe(
+        catchError((error: HttpErrorResponse) => this.requestFailedHandler(error))
+      );
   }
 }

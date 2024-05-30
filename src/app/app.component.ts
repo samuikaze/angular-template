@@ -1,30 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { AppEnvironmentService } from './services/app-environment-service/app-environment.service';
-import { NavigationEnd, Router } from '@angular/router';
-import { BaseFooterComponent } from './layouts/base/base-footer/base-footer.component';
-import { BaseBodyComponent } from './layouts/base/base-body/base-body.component';
-import { BaseHeaderComponent } from './layouts/base/base-header/base-header.component';
+import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    standalone: true,
-    imports: [BaseHeaderComponent, BaseBodyComponent, BaseFooterComponent]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.sass']
 })
-export class AppComponent implements OnInit {
-  title = 'angular15-template';
-
-  constructor(
-    private appEnvironmentService: AppEnvironmentService,
-    private router: Router
-  ) {}
-
-  ngOnInit(): void {
-    this.router.events.subscribe(async (event) => {
-      if (event instanceof NavigationEnd) {
-        this.appEnvironmentService.retrievingConfigsFromJson();
-      }
-    });
-  }
+export class AppComponent {
+  title = 'angular-template';
 }

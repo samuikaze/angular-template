@@ -1,19 +1,23 @@
 import { ViewportScroller } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-base-footer',
-    templateUrl: './base-footer.component.html',
-    styleUrls: ['./base-footer.component.scss'],
-    standalone: true
+  selector: 'app-base-footer',
+  templateUrl: './base-footer.component.html',
+  styleUrls: ['./base-footer.component.sass']
 })
-export class BaseFooterComponent {
-constructor(private viewportService: ViewportScroller) {}
+export class BaseFooterComponent implements OnInit {
 
-  /**
-   * 返回頁面頂部
-   */
-  public returnToTop() {
+  constructor(private viewportService: ViewportScroller) { }
+
+  ngOnInit(): void {
+  }
+
+  showArrowToTop(): void {
+    //
+  }
+
+  returnToTop(): void {
     this.viewportService.scrollToPosition([0, 0]);
   }
 }
