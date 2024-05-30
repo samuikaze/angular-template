@@ -1,6 +1,10 @@
-# Angular15 Template
+# Angular Template
 
 這是一個 Angular 15 + Bootstrap 5.2.3 的模板專案，用於快速起始新的專案用
+
+> 如需使用不同版本的模板，請透過分支切換
+
+> 請注意，16 版的容器化部署還未經過測試
 
 ## 撰寫上的注意事項
 
