@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BaseBodyComponent } from './base-body.component';
+import { NavigatorComponent } from './navigator.component';
 
-describe('BaseBodyComponent', () => {
-  let component: BaseBodyComponent;
-  let fixture: ComponentFixture<BaseBodyComponent>;
+describe('NavigatorComponent', () => {
+  let component: NavigatorComponent;
+  let fixture: ComponentFixture<NavigatorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BaseBodyComponent ]
+      declarations: [ NavigatorComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BaseBodyComponent);
+    fixture = TestBed.createComponent(NavigatorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

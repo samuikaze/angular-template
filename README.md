@@ -1,36 +1,25 @@
-# Angular15 Template
+<!-- markdownlint-disable MD028 -->
 
-這是一個 Angular 15 + Bootstrap 5.2.3 的模板專案，用於快速起始新的專案用
+# Angular Template
 
-## 撰寫上的注意事項
+這是一個 Angular 13 + Bootstrap 5.2.1 的模板專案，用於快速起始新的專案用
 
-1. assets 的 URL 不需要以 `/` 開頭，否則在以路徑區分網站的伺服器中 (例: 以 path 做反向代理的 Kubernetes) 會全部得到 404 回應
-    > 例: `/assets/test.png` 必須改寫為 `assets/test.png`
+> 如需使用不同版本的模板，請透過分支切換
 
-## 設定
+> 請注意，13 版的容器化部署還未經過測試，此版本目前僅將先前建立的 Angular 13 模板合併過來
 
-1. (非必要) 修改 package.json 中 `name` 與 `version`
-2. 修改 Dockerfile 中 `RUN ng build -c production --base-href /template/` 的 `--base-href` 值為實際部署的路徑
-    > `--base-href` 值請務必以 `/` 結尾，否則除了 index.html 外，全部都會得到 404 回應
+## 相關功能啟用說明
 
-    > 若部署非使用 path 方式，則可以將 `--base-href` 後面整個刪除
-3. 修改 `.kubernetes` 資料夾下兩個 yaml 檔內容
-    > 該資料夾下的 yaml 檔若在 `.yaml` 檔名前加上 `.production`，則該檔案不會進版本控制
+由於不是所有的功能都需要每次都啟用，因此部分功能是以註解的方式先行註解掉，有需要再打開註解進行注入與設定即可
 
-    > ingress 的設定檔中 path 與 2. 的 base-href 務必要吻合，否則網頁無法正常顯示
+### 麵包屑
 
-## 參考資料
+如需啟用麵包屑相關功能，依據下列順序啟功此功能:
 
-- [Day20-建立Angular Frontend Docker image](https://ithelp.ithome.com.tw/articles/10207731)
-- [Angular URL Rewrite](https://github.com/kubernetes/ingress-nginx/issues/4266#issuecomment-551218413)
-- [Angular app on Kubernetes Ingress when using non-root path](https://stackoverflow.com/a/64051684)
-- [What's the difference between --base-href and --deploy-url parameters of angular-cli tool](https://stackoverflow.com/a/51185659)
-- [Receiving permission denied error with Docker, nginx, uwsgi setup. I can manually write files inside the container](https://stackoverflow.com/a/74543204)
-- [access denied for image file server in nginix](https://stackoverflow.com/a/54623331)
-- [部署 - Angular](https://angular.tw/guide/deployment#the-base-tag)
-- [Module not found: Error: Can't resolve file](https://github.com/angular/angular-cli/issues/4778#issuecomment-280798718)
-- [ng generate module](https://angular.io/cli/generate#module)
-- [如何透過 Angular CLI 快速將專案全部都轉換成獨立元件架構](https://blog.miniasp.com/post/2023/04/10/Migration-to-Standalone-Component-using-Angular-CLI)
-- [Angular App Fails to Build using GitHub Actions ('Cannot find module')](https://stackoverflow.com/a/66729595)
-- [Github Actions for NodeJS - 'Error: Cannot find module' for local file](https://stackoverflow.com/a/64359597)
-- [git mv and only change case of directory](https://stackoverflow.com/a/3011723)
+- 打開 `app.component.html` 並打開 `<app-navigator></app-navigator>` 的註解
+- 於各 Components 的 ts 檔注入 `BreadcrumbService`，並新增以 `Breadcrumb` 為型別的 breadcrumb 屬性
+- 於 `ngOnInit()` 進行 `BreadcrumbService` 中相關方法的呼叫
+
+### 表單雙向綁定
+
+如需表單雙向綁定相關功能，打開 `app.module.ts`，並打開 `FormsModule` 模組的注入後即可使用

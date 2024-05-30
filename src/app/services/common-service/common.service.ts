@@ -1,31 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { RequestService } from '../request-service/request.service';
-import { SecureLocalStorageService } from '../secure-local-storage/secure-local-storage.service';
-import { AppEnvironmentService } from '../app-environment-service/app-environment.service';
+import { ActivatedRoute } from '@angular/router';
+import { IAlbum, Lightbox } from 'ngx-lightbox';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
 
+  private siteTitle = "範例專案";
   constructor(
+    private route: ActivatedRoute,
     private titleService: Title,
-    private secureLocalStorageService: SecureLocalStorageService,
-    private requestService: RequestService,
-    private appEnvironmentService: AppEnvironmentService
+    private lightbox: Lightbox
   ) { }
 
   /**
    * 設定頁面標題
    * @param newTitle 新標題
    */
-  public async setTitle(newTitle: string): Promise<void> {
-    const siteTitle = await this.appEnvironmentService.getConfig<string>('siteTitle') || '';
+  public setTitle(newTitle: string): void {
     if (newTitle.length > 0) {
-      this.titleService.setTitle(`${newTitle} - ${siteTitle}`);
+      this.titleService.setTitle(`${newTitle} - ${this.siteTitle}`);
     } else {
-      this.titleService.setTitle(siteTitle);
+      this.titleService.setTitle(this.siteTitle);
     }
   }
 
@@ -36,7 +34,7 @@ export class CommonService {
    * @param num 要返回的個數
    * @returns 處理後的值
    */
-  public processDateTime(raw: string | Date, num: number): string {
+  public processDateTime(raw: string, num: number): string {
     if (num > 6) {
       num = 6;
     } else if (num < 0) {
@@ -66,56 +64,43 @@ export class CommonService {
   }
 
   /**
-   * 確認目前登入狀態 (離線驗證)
-   * @returns 是否為登入狀態
+   * 處理 IAlbum 物件
+   * @param raw 原始 img 標籤
+   * @param thumb 縮圖網址
+   * @param caption 替代文字
+   * @param downloadUrl 下載網址
+   * @returns IAlbum 物件
    */
-  public checkAuthenticateStateOffline(): boolean {
-    // 請自行實作離線登入狀態驗證
+  generateIAlbumObject(
+    raw: HTMLImageElement,
+    thumb?: string,
+    caption?: string,
+    downloadUrl?: string
+  ): IAlbum {
+    if (thumb == undefined) {
+      thumb = raw.src;
+    }
 
-    return true;
+    if (downloadUrl == undefined) {
+      downloadUrl = raw.src;
+    }
+
+    const I_ALBUM: IAlbum = {
+      src: raw.src,
+      caption: caption,
+      thumb: thumb,
+      downloadUrl: downloadUrl,
+    };
+
+    return I_ALBUM;
   }
 
   /**
-   * 確認目前登入狀態
-   * @returns 是否為登入狀態
+   * 打開燈箱
+   * @param iAlbum 多個 IAlbum 物件
+   * @param index 打開第幾張圖
    */
-  public async checkAuthenticateState(): Promise<boolean> {
-    // 請自行實作線上登入狀態驗證
-
-    return true;
-  }
-
-  /**
-   * 以重整權杖取得新的存取權杖
-   * @returns 是否成功重新取得存取權杖
-   */
-  public async reactiveAccessToken(): Promise<boolean> {
-    return new Promise<boolean>((resolve, reject) => {
-      // 請自行實作以重整權杖取得新的存取權杖
-    });
-  }
-
-  /**
-   * 清除登入相關的資料 (等同於登出)
-   */
-  public clearAuthenticateData() {
-    // 請自行實作登出時要清除哪些資料
-  }
-
-  /**
-   * 登入相關資料
-   * @returns 登入帳號相關資料
-   */
-  public getUserData(): any {
-    // 請自行實作取得帳號資料邏輯
-  }
-
-  /**
-   * 複製物件
-   * @param original 原始物件
-   * @returns 複製的物件
-   */
-  public deepCloneObject(original: any): any {
-    return JSON.parse(JSON.stringify(original));
+   openLightbox(iAlbum: Array<IAlbum>, index: number): void {
+    this.lightbox.open(iAlbum, index);
   }
 }
