@@ -25,6 +25,8 @@
 
 ## 參考資料
 
+### Angular
+
 - [Day20-建立Angular Frontend Docker image](https://ithelp.ithome.com.tw/articles/10207731)
 - [Angular URL Rewrite](https://github.com/kubernetes/ingress-nginx/issues/4266#issuecomment-551218413)
 - [Angular app on Kubernetes Ingress when using non-root path](https://stackoverflow.com/a/64051684)
@@ -38,3 +40,18 @@
 - [Angular App Fails to Build using GitHub Actions ('Cannot find module')](https://stackoverflow.com/a/66729595)
 - [Github Actions for NodeJS - 'Error: Cannot find module' for local file](https://stackoverflow.com/a/64359597)
 - [git mv and only change case of directory](https://stackoverflow.com/a/3011723)
+- [How to call component method from service? (angular2)](https://stackoverflow.com/a/40788926)
+- [How to call another components function in angular2](https://stackoverflow.com/a/54245245)
+- [4 Methods to Share Data between Components in Angular](https://www.samarpaninfotech.com/blog/methods-to-share-data-between-angular-components/)
+- [How can I reset a custom form control with Angular](https://stackoverflow.com/a/52794721)
+- [How to Validate Angular Reactive Forms](https://www.freecodecamp.org/news/how-to-validate-angular-reactive-forms/)
+- [Reactive forms angular show error for pattern in angular](https://stackoverflow.com/a/62916483)
+
+### PrimeNG
+
+- [Primeng <p-table> Clear selected checkboxes with Angular](https://stackoverflow.com/a/75264648)
+
+### Javascript
+
+- [How to find out the actual event.target of touchmove javascript event?](https://stackoverflow.com/a/4405541)
+- [Easiest way to check for null and empty string on a TypeScript number](https://stackoverflow.com/a/39056998)
