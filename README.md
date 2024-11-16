@@ -1,3 +1,6 @@
+<!-- markdownlint-disable MD028 -->
+<!-- markdownlint-disable MD033 -->
+
 # Angular Template
 
 這是一個 Angular 15 + Bootstrap 5.2.3 的模板專案，用於快速起始新的專案用
@@ -55,3 +58,7 @@
 
 - [How to find out the actual event.target of touchmove javascript event?](https://stackoverflow.com/a/4405541)
 - [Easiest way to check for null and empty string on a TypeScript number](https://stackoverflow.com/a/39056998)
+
+### I18n
+
+- [【Angular】多國語系 NGX-Translate](https://medium.com/allen%E7%9A%84%E6%8A%80%E8%A1%93%E7%AD%86%E8%A8%98/angular-ngx-translate-%E7%AD%86%E8%A8%98-84b8812419ab)
