@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { AppEnvironmentService } from './app-environment.service';
 
-describe('AppEnvironmentServiceService', () => {
+describe('AppEnvironmentService', () => {
   let service: AppEnvironmentService;
 
   beforeEach(() => {

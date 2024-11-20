@@ -3,16 +3,15 @@
 
 # Angular Template
 
-這是一個 Angular 15 + Bootstrap 5.2.3 的模板專案，用於快速起始新的專案用
+這是一個 Angular 18 + Bootstrap 5.3.3 的模板專案，用於快速起始新的專案用
 
 > 如需使用不同版本的模板，請透過分支切換
-
-> 請注意，16 版的容器化部署還未經過測試
 
 ## 撰寫上的注意事項
 
 1. assets 的 URL 不需要以 `/` 開頭，否則在以路徑區分網站的伺服器中 (例: 以 path 做反向代理的 Kubernetes) 會全部得到 404 回應
-    > 例: `/assets/test.png` 必須改寫為 `assets/test.png`
+    > 例: `/test.png` 必須改寫為 `test.png`
+2. 使用 Bootstrap 時，遇到 a 元素不帶 href 屬性時，滑鼠指標不會變成 pointer，必須加上 `role="button"` 屬性。
 
 ## 設定
 
@@ -49,6 +48,7 @@
 - [How can I reset a custom form control with Angular](https://stackoverflow.com/a/52794721)
 - [How to Validate Angular Reactive Forms](https://www.freecodecamp.org/news/how-to-validate-angular-reactive-forms/)
 - [Reactive forms angular show error for pattern in angular](https://stackoverflow.com/a/62916483)
+- [Nullinjectorerror: no provider for httpclient! without app.module.ts](https://stackoverflow.com/a/76061863)
 
 ### PrimeNG
 

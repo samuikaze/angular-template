@@ -28,7 +28,7 @@ spec:
           # 若有需要將 configs.json 綁定到容器中，請打開以下註解
           # volumeMounts:
           #   - name: config-volume
-          #     mountPath: /usr/share/nginx/html/assets/configs.json
+          #     mountPath: /usr/share/nginx/html/configs.json
           #     subPath: config.json
           resources:
             requests:

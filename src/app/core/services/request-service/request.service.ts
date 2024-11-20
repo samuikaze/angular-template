@@ -1,8 +1,8 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { SecureLocalStorageService } from '../secure-local-storage-service/secure-local-storage.service';
 import { BaseParams, CustomerHeaders, RequestBody } from './request';
-import { SecureLocalStorageService } from '../secure-local-storage/secure-local-storage.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

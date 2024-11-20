@@ -1,12 +1,13 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { RequestService } from '../request-service/request.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AppEnvironmentService {
+
   private configFromJson?: any = undefined;
   constructor(private requestService: RequestService) {}
 
@@ -15,7 +16,7 @@ export class AppEnvironmentService {
    */
   public retrievingConfigsFromJson(): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      this.requestService.get<any>('assets/configs.json').subscribe({
+      this.requestService.get<any>('configs.json').subscribe({
         next: (response) => {
           this.configFromJson = response;
           resolve(true);
@@ -45,7 +46,7 @@ export class AppEnvironmentService {
    * @param key 設定值鍵名
    * @returns 設定值
    */
-  public async getConfig<T>(key: string): Promise<T|undefined> {
+  public async getConfig<T>(key: string): Promise<T | undefined> {
     if (this.configFromJson === undefined) {
       await new Promise<void>((resolve) => setTimeout(resolve, 100));
       return this.getConfig<T>(key);
