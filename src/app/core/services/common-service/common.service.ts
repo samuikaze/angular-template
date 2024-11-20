@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { RequestService } from '../request-service/request.service';
-import { SecureLocalStorageService } from '../secure-local-storage/secure-local-storage.service';
 import { AppEnvironmentService } from '../app-environment-service/app-environment.service';
 
 @Injectable({
@@ -11,8 +9,6 @@ export class CommonService {
 
   constructor(
     private titleService: Title,
-    private secureLocalStorageService: SecureLocalStorageService,
-    private requestService: RequestService,
     private appEnvironmentService: AppEnvironmentService
   ) { }
 

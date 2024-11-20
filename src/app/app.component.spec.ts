@@ -1,15 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [
-        RouterTestingModule,
-        AppComponent
-    ]
-}).compileComponents();
+      imports: [AppComponent],
+    }).compileComponents();
   });
 
   it('should create the app', () => {
@@ -18,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'angular15-template'`, () => {
+  it(`should have the 'angular18-template' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('angular15-template');
+    expect(app.title).toEqual('angular18-template');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('angular15-template app is running!');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, angular18-template');
   });
 });
