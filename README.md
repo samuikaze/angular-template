@@ -3,7 +3,7 @@
 
 # Angular Template
 
-這是一個 Angular 18 + Bootstrap 5.3.3 的模板專案，用於快速起始新的專案用
+這是一個 Angular 19 + Bootstrap 5.3.8 的模板專案，用於快速起始新的專案用
 
 > 如需使用不同版本的模板，請透過分支切換
 
