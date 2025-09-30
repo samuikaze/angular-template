@@ -6,12 +6,11 @@ import { AppEnvironmentService } from './core/services/app-environment-service/a
 import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [BaseHeaderComponent, BaseBodyComponent, BaseFooterComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
-  providers: []
+    selector: 'app-root',
+    imports: [BaseHeaderComponent, BaseBodyComponent, BaseFooterComponent],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss',
+    providers: []
 })
 export class AppComponent {
   title = 'angular18-template';
